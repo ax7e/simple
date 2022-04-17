@@ -1,0 +1,124 @@
++bt
+#0  0x0000555557dfbb99 in SimpleSSD::FTL::PageMapping::writeInternal (this=0x5555595b1900, req=..., 
+    tick=@0x7fffffffc820: 326792827668, sendToPAL=true)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/ftl/page_mapping.cc:719
+#1  0x0000555557dfc1ea in SimpleSSD::FTL::PageMapping::write (this=0x5555595b1900, req=..., 
+    tick=@0x7fffffffc820: 326792827668)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/ftl/page_mapping.cc:208
+#2  0x0000555557df6f89 in SimpleSSD::FTL::FTL::write (
+    this=0x55555c7b6f50, req=..., 
+    tick=@0x7fffffffc820: 326792827668)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/ftl/ftl.cc:79
+#3  0x0000555557e03728 in SimpleSSD::ICL::SLCCache::read (this=0x55557c326000, req=..., 
+    tick=@0x7fffffffc8d8: 326792827668)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/icl/slc_cache.cc:495
+#4  0x0000555557df2593 in SimpleSSD::ICL::ICL::read (
+    this=0x55555c583900, req=..., 
+    tick=@0x7fffffffc968: 326792825748)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/icl/icl.cc:86
+#5  0x0000555557de6bb7 in SimpleSSD::HIL::HIL::<lambda(uint64_t, void*)>::operator() (
+    __closure=0x555581a53640, context=0x55557cea08a0, 
+    beginAt=326792825748)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/hil/hil.cc:54
+#6  std::_Function_handler<void(long unsigned int, void*), SimpleSSD::HIL::HIL::read(SimpleSSD::HIL::Request&)::<lambda(uint64_t, void*)> >::_M_invoke(const std::_Any_data &, unsigned long &&, void *&&) (__functor=..., 
+    __args#0=<optimized out>, __args#1=<optimized out>)
+    at /usr/include/c++/9/bits/std_function.h:300
+#7  0x0000555557dd4961 in std::function<void (unsigned long, void*)>::operator()(unsigned long, void*) const (
+    __args#1=<optimized out>, 
+    __args#0=<optimized out>, this=0x555581a53640)
+    at /usr/include/c++/9/bits/std_function.h:683
+#8  SimpleSSD::CPU::CPU::Core::jobDone (
+    this=0x555559f77cc0)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/cpu/cpu.cc:121
+#9  SimpleSSD::CPU::CPU::Core::<lambda(uint64_t)>::operator() (__closure=<optimized out>)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/cpu/cpu.cc:73
+#10 std::_Function_handler<void(long unsigned int), SimpleSSD::CPU::CPU::Core::Core()::<lambda(uint64_t)> >::_M_invoke(const std::_Any_data &, unsigned long &&) (
+    __functor=..., __args#0=<optimized out>)
+    at /usr/include/c++/9/bits/std_function.h:300
+#11 0x0000555557532e5e in std::function<void (unsigned long)>::operator()(unsigned long) const (
+    __args#0=<optimized out>, this=<optimized out>)
+    at /usr/include/c++/9/bits/std_function.h:683
+#12 EventEngine::<lambda()>::operator() (
+    __closure=<optimized out>)
+    at build/ARM/dev/storage/def.cc:42
+#13 std::_Function_handler<void(), EventEngine::allocateEvent(SimpleSSD::EventFunction)::<lambda()> >::_M_invoke(const std::_Any_data &) (__functor=...)
+    at /usr/include/c++/9/bits/std_function.h:300
+#14 0x0000555557396ddb in std::function<void ()>::operator()() const (this=0x555559999128)
+    at /usr/include/c++/9/bits/std_function.h:683
+#15 EventFunctionWrapper::process (this=0x5555599990f0)
+    at build/ARM/sim/eventq.hh:836
+#16 EventQueue::serviceOne (
+    this=this@entry=0x55555999dd60)
+    at build/ARM/sim/eventq.cc:228
+#17 0x00005555573b3d38 in doSimLoop (
+    eventq=0x55555999dd60)
+    at build/ARM/sim/simulate.cc:219
+#18 0x00005555573b4b2d in simulate (
+    num_cycles=<optimized out>)
+    at build/ARM/sim/simulate.cc:132
+#19 0x00005555578f28f0 in pybind11::detail::argument_loader<unsigned long>::call_impl<GlobalSimLoopExitEvent*, GlobalSimLoopExitEvent* (*&)(unsigned long), 0ul, pybind11::detail::void_type> (f=<optimized out>, 
+    this=0x7fffffffcf40)
+    at ext/pybind11/include/pybind11/cast.h:1934
+#20 pybind11::detail::argument_loader<unsigned long>::call<GlobalSimLoopExitEvent*, pybind11::detail::void_type, GlobalSimLoopExitEvent* (*&)(unsigned long)>(GlobalSimLoopExitEvent* (*&)(unsigned long)) && (
+    f=<optimized out>, this=0x7fffffffcf40)
+    at ext/pybind11/include/pybind11/cast.h:1912
+#21 pybind11::cpp_function::initialize<GlobalSimLoopExitEvent* (*&)(unsigned long), GlobalSimLoopExitEvent*, unsigned long, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::arg_v>(GlobalSimLoopExitEvent* (*&)(unsigned long), GlobalSimLoopExitEvent* (*)(unsigned long), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::arg_v const&)::{lambda(pybind11::detail::function_call&)#3}::operator()(pybind11::detail::function_call&) const (call=..., this=0x0)
+    at ext/pybind11/include/pybind11/pybind11.h:159
+#22 pybind11::cpp_function::initialize<GlobalSimLoopExitEvent* (*&)(unsigned long), GlobalSimLoopExitEvent*, unsigned long, pybind11::name, pybind11::scope, pybind11::sibling, pybind11::arg_v>(GlobalSimLoopExitEvent* (*&)(unsigned long), GlobalSimLoopExitEvent* (*)(unsigned long), pybind11::name const&, pybind11::scope const&, pybind11::sibling const&, pybind11::arg_v const&)::{lambda(pybind11::detail::function_call&)#3}::_FUN(pybind11::detail::function_call&) ()
+    at ext/pybind11/include/pybind11/pybind11.h:137
+#23 0x00005555572929a7 in pybind11::cpp_function::dispatcher (self=<optimized out>, args_in=0x7ffff48da450, 
+    kwargs_in=0x7ffff3fa9a70)
+    at ext/pybind11/include/pybind11/pybind11.h:624
+#24 0x00007ffff7d57e82 in PyEval_EvalFrameEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#25 0x00007ffff7d51308 in PyEval_EvalCodeEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#26 0x00007ffff7d58a99 in PyEval_EvalFrameEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#27 0x00007ffff7d51308 in PyEval_EvalCodeEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#28 0x00007ffff7d58a99 in PyEval_EvalFrameEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#29 0x00007ffff7d51308 in PyEval_EvalCodeEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#30 0x00007ffff7d58a99 in PyEval_EvalFrameEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#31 0x00007ffff7d51308 in PyEval_EvalCodeEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#32 0x00007ffff7d5185d in PyEval_EvalCode ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#33 0x00007ffff7d5898e in PyEval_EvalFrameEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#34 0x00007ffff7d51308 in PyEval_EvalCodeEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#35 0x00007ffff7d58a99 in PyEval_EvalFrameEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#36 0x00007ffff7d51308 in PyEval_EvalCodeEx ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#37 0x00007ffff7d5185d in PyEval_EvalCode ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#38 0x00007ffff7d2a14a in PyRun_StringFlags ()
+   from /lib/x86_64-linux-gnu/libpython2.7.so.1.0
+#39 0x000055555739fa7b in m5Main (
+    argc=<optimized out>, _argv=0x7fffffffdef8)
+    at build/ARM/sim/init.cc:302
+#40 0x000055555610944c in main (argc=18, 
+    argv=0x7fffffffdef8) at build/ARM/sim/main.cc:69
++f 2
+#2  0x0000555557df6f89 in SimpleSSD::FTL::FTL::write (this=0x55555c7b6f50, req=..., 
+    tick=@0x7fffffffc820: 326792827668)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/ftl/ftl.cc:79
++f 1
+#1  0x0000555557dfc1ea in SimpleSSD::FTL::PageMapping::write (this=0x5555595b1900, req=..., 
+    tick=@0x7fffffffc820: 326792827668)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/ftl/page_mapping.cc:208
++f 3
+#3  0x0000555557e03728 in SimpleSSD::ICL::SLCCache::read (this=0x55557c326000, req=..., 
+    tick=@0x7fffffffc8d8: 326792827668)
+    at /home/hao/simplessd-fullsystem/src/dev/storage/simplessd/icl/slc_cache.cc:495
++c
+Continuing.
+
+Program received signal SIGSEGV, Segmentation fault.
+__pthread_kill (threadid=<optimized out>, signo=signo@entry=11) at ../sysdeps/unix/sysv/linux/pthread_kill.c:56
+../sysdeps/unix/sysv/linux/pthread_kill.c: No such file or directory.

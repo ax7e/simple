@@ -1,0 +1,20 @@
+#!/bin/bash
+
+n=0
+name="gem5-$n"
+while true
+do
+	tmux has-session -t $name
+	if [ $? != 0 ]
+	then
+		break
+	fi
+	n=`expr $n + 1`
+	name="gem5-$n"
+done
+tmux new-session -s $name -n editor -d
+tmux send-keys -t $name 'cd ~/simplessd-fullsystem' C-m
+tmux split-window -h -t $name
+tmux send-keys -t $name:0.1 './build/ARM/gem5.opt --debug-flag=M5Print --debug-file=debug.txt ./configs/example/fs.py --kernel=aarch64-vmlinux-4.19.229 --dtb-file=armv8_gem5_v1_4cpu.dtb --machine-type=VExpress_GEM5_V1 --num-cpu=4 --cpu-clock=2GHz --caches --l2cache --cpu-type=AtomicSimpleCPU --mem-size=4GB --mem-type=DDR4_2400_8x8 --ssd-interface=nvme --ssd-config=./src/dev/storage/simplessd/config/sample.cfg --disk-image=linaro-aarch64-linux.img' C-m
+sleep 2s
+tmux send-keys -t $name:0.0 './util/term/m5term localhost 3456' C-m
